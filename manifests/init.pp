@@ -83,10 +83,11 @@ class kibana5 (
     notify => Package['kibana'],
   }
   package { 'kibana':
-    ensure   => present,
+    ensure   => $kibana_version,
     provider => 'dpkg',
     source   => "/opt/staging/kibana5/kibana-${kibana_version}-${::architecture}.deb",
     require  => Staging::File["kibana-${kibana_version}-${::architecture}.deb"],
+    notify   => Service['kibana'],
   }
   file { '/etc/kibana/kibana.yml':
     ensure  => present,
