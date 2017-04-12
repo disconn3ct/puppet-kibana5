@@ -83,12 +83,17 @@ class kibana5 (
     notify => Package['kibana'],
   }
   package { 'kibana':
-    ensure   => $kibana_version,
-    provider => 'dpkg',
-    source   => "/opt/staging/kibana5/kibana-${kibana_version}-${::architecture}.deb",
-    require  => Staging::File["kibana-${kibana_version}-${::architecture}.deb"],
-    notify   => Service['kibana'],
+    ensure  => $kibana_version,
+    source  => "/opt/staging/kibana5/kibana-${kibana_version}-${::architecture}.deb",
+    require => Staging::File["kibana-${kibana_version}-${::architecture}.deb"],
+    notify  => Service['kibana'],
   }
+  # Hold package at required version
+  file { '/etc/apt/preferences.d/kibana.pref':
+    ensure  => present,
+    content => "Package: kibana\nPin: version ${kibana_version}\nPin-Priority: 1000\n",
+  }
+
   file { '/etc/kibana/kibana.yml':
     ensure  => present,
     mode    => '0640',
