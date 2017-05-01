@@ -16,14 +16,14 @@
 		{
 			"operatingsystem": "Ubuntu",
 			"operatingsystemrelease": [
-				"14.04",
+				"14.04"
 			]
 		}
 	],
 	"requirements": [
 		{
 			"name": "puppet",
-			"version_requirement": "3.8.x",
+			"version_requirement": "3.8.x"
 		}
 	]
 }
